@@ -1,0 +1,35 @@
+{
+  "name": "psi-vue3",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "serve": "vite",
+    "dev": "vite --mode development",
+    "prod": "vite --mode production",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "async-validator": "^4.2.5",
+    "axios": "^1.6.7",
+    "flowbite": "^2.3.0",
+    "pinia": "^2.1.7",
+    "prettier": "^3.2.5",
+    "qs": "^6.11.2",
+    "vue": "^3.4.19",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "@types/qs": "^6.9.11",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4",
+    "vue-tsc": "^1.8.27"
+  }
+}
