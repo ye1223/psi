@@ -42,4 +42,7 @@ export interface ApiResult<T> {
 
 
 // ApiResult data 返回结果
-export interface LoginResult extends UserInfo {}
+// export interface LoginResult extends UserInfo {}
+export interface LoginResult {
+	token: string
+}

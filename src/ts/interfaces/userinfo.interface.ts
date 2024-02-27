@@ -1,5 +1,5 @@
 export interface UserInfo {
-    userId: string
+    id: string
     userName: string
     roleId: number
     roleName: string

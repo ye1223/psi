@@ -12,7 +12,8 @@ const options: RouterOptions = {
 
 const router = createRouter(options)
 router.beforeEach((toRoute, _, next) => {
-	let targetTitle = toRoute.matched[toRoute.matched.length - 1].meta.title;
+	// let targetTitle = toRoute.matched[toRoute.matched.length - 1].meta.title;
+	let targetTitle = toRoute.meta.title
 	console.log(toRoute)
 	console.log(targetTitle)
 	// toRoute.path:/user/manage
@@ -26,7 +27,7 @@ router.beforeEach((toRoute, _, next) => {
 	} else {
 		if (drawToken()) {
 			// @ts-ignore
-			let authUrls = ROLE_AUTH[drawUserInfo().roleId];
+			let authUrls = ROLE_AUTH[drawUserInfo()?.roleId];
 			if (!authUrls) {
 				return next({ path: '/' });
 			}

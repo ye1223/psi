@@ -7,20 +7,29 @@ import { UserInfo } from '@/ts/interfaces/userinfo.interface'
 const useUserInfoStore = defineStore('userInfo', async () => {
 	// 如果回话存储没有USER_INFO_KEY，使用默认的
 	const userInfo = ref<UserInfo | null>(null)
-	/* const fetchUserInfo = async () => {
-		(userInfo.value) = await formGet<UserInfo>({
-			url: ''
+
+	userInfo.value = {
+		id: 'string',
+		userName: 'string',
+		roleId: 1,
+		roleName: 'string'
+	}
+	const fetchUserInfo = async () => {
+		const { data } = await formGet<UserInfo>({
+			url: '/user/getUserByToken'
 		})
-		updateUserInfo(userInfo.value)
-	  } */
-	
-	  const updateUserInfo = (payload: UserInfo) => {
+		userInfo.value = data
+
+		storeUserInfo(userInfo.value)
+	}
+
+	const storeUserInfo = (payload: UserInfo) => {
 		userInfo.value = payload
-	  }
+	}
 	return {
 		userInfo,
 		fetchUserInfo,
-		updateUserInfo
+		storeUserInfo
 	}
 })
 

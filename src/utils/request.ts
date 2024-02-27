@@ -5,6 +5,7 @@ import axios, {
 	AxiosInstance,
 	AxiosResponse
 } from 'axios'
+import Toast from '@/components/UI/Toast'
 import { drawToken } from "@/utils/storage";
 import { BASE_URL } from '@/utils/constants'
 
@@ -46,9 +47,11 @@ const addInterceptors = (req: AxiosInstance) => {
 	req.interceptors.response.use((response: AxiosResponse) => {
 		// 直接返回服务端返回的结果
 		let resultVO = response.data;
+		console.log('response interceptor' ,response)
 		if (resultVO.success) {
 			return resultVO;
 		} else {
+			Toast.error(`业务异常:"${resultVO.errMsg}`)
 			console.log("业务异常:", resultVO.errMsg);
 			// 直接自己返回Promise
 			return Promise.reject(resultVO);

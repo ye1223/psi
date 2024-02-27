@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import { appJsonPost } from '@/api/request'
+import { useRouter } from 'vue-router'
 import type { Rules } from 'async-validator'
 import Schema from 'async-validator'
+import { appJsonPost, formGet } from '@/api/request'
+import Toast from '@/components/UI/Toast'
 import { LoginForm } from '@/ts/interfaces/login.interface'
 import { LoginResult } from '@/ts/interfaces/request.interface'
+import { storeToken, storeUserInfo } from '@/utils/storage'
+import { UserInfo } from '@/ts/interfaces/userinfo.interface'
+
+const router = useRouter()
 
 const rules: Rules = {
-	name: {
+	userName: {
 		type: 'string', // 使用预设类型校验规则
 		required: true // 必填
 	},
@@ -19,7 +25,7 @@ const rules: Rules = {
 
 const formRef = ref()
 const form = reactive<LoginForm>({
-	name: '',
+	userName: '',
 	pwd: ''
 })
 // 创建校验对象
@@ -27,20 +33,28 @@ const validator = new Schema(rules)
 const handleLogin = () => {
 	validator.validate(form, (errors, fields) => {
 		if (errors) {
-			// console.log(errors)
+			// Toast.error(JSON.stringify(errors))
+			console.log(errors)
 		} else {
 			appJsonPost<LoginForm, LoginResult>({
 				url: '/user/login',
 				data: fields as LoginForm
 			})
-				.then(res => {
-					userInfoStore.changeUserInfo(res.data)
-					setItem(TOKEN_KEY, res.data.token)
-					router.replace('/category/manage')
+				.then(resVO => {
+					// 存储Login Token
+					storeToken(resVO.data)
+					
+					// 获取用户Token
+					formGet<UserInfo>({
+						url: '/user/getUserByToken'
+					}).then(res => {
+						storeUserInfo(res.data)
+					})
+					router.replace('/index')
 					Toast.success('欢迎进入账单管理系统!')
 				})
 				.catch(err => {
-					Toast.error(err.msg)
+					Toast.error(JSON.stringify(err))
 				})
 		}
 	})
@@ -81,7 +95,7 @@ const handleLogin = () => {
 								账号
 							</label>
 							<input
-								v-model="form.name"
+								v-model="form.userName"
 								type="text"
 								name="name"
 								id="name"
