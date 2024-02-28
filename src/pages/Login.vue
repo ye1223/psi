@@ -1,17 +1,16 @@
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Rules } from 'async-validator'
-import Schema from 'async-validator'
 import { appJsonPost, formGet } from '@/api/request'
 import Toast from '@/components/UI/Toast'
 import { LoginForm } from '@/ts/interfaces/login.interface'
 import { LoginResult } from '@/ts/interfaces/request.interface'
 import { storeToken, storeUserInfo } from '@/utils/storage'
 import { UserInfo } from '@/ts/interfaces/userinfo.interface'
+import useFormValidator from '@/hooks/useFormValidator'
 
 const router = useRouter()
-
 const rules: Rules = {
 	userName: {
 		type: 'string', // 使用预设类型校验规则
@@ -23,15 +22,15 @@ const rules: Rules = {
 	}
 }
 
-const formRef = ref()
-const form = reactive<LoginForm>({
+// const formRef = ref();
+const form = ref<LoginForm>({
 	userName: '',
 	pwd: ''
 })
 // 创建校验对象
-const validator = new Schema(rules)
-const handleLogin = () => {
-	validator.validate(form, (errors, fields) => {
+// const validator = new Schema(rules);
+const handleLogin = async () => {
+	/* validator.validate(form, (errors, fields) => {
 		if (errors) {
 			// Toast.error(JSON.stringify(errors))
 			console.log(errors)
@@ -43,7 +42,7 @@ const handleLogin = () => {
 				.then(resVO => {
 					// 存储Login Token
 					storeToken(resVO.data)
-					
+
 					// 获取用户Token
 					formGet<UserInfo>({
 						url: '/user/getUserByToken'
@@ -57,7 +56,34 @@ const handleLogin = () => {
 					Toast.error(JSON.stringify(err))
 				})
 		}
-	})
+	}) */
+	const { pass, execute } = useFormValidator(rules, form)
+	await execute()
+	if (pass.value) {
+		appJsonPost<LoginForm, LoginResult>({
+			url: '/user/login',
+			data: form.value
+		})
+			.then(resVO => {
+				// 存储Login Token
+				storeToken(resVO.data)
+
+				// 获取用户Token
+				formGet<UserInfo>({
+					url: '/user/getUserByToken'
+				}).then(res => {
+					storeUserInfo(res.data)
+				})
+				router.replace('/index')
+				Toast.success('欢迎进入账单管理系统!')
+			})
+			.catch(err => {
+				Toast.error(err.errMsg)
+			})
+	} else {
+		Toast.error('账号验证错误')
+		// console.log(errorFields, errors)
+	}
 }
 </script>
 
@@ -85,7 +111,6 @@ const handleLogin = () => {
 					<form
 						class="space-y-4 md:space-y-6"
 						onsubmit="return false"
-						ref="formRef"
 					>
 						<div>
 							<label
