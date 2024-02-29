@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Rules } from 'async-validator'
 import { appJsonPost, formGet } from '@/api/request'
+import useUserInfoStore from '@/store/userInfoStore'
 import Toast from '@/components/UI/Toast'
 import { LoginForm } from '@/ts/interfaces/login.interface'
 import { LoginResult } from '@/ts/interfaces/request.interface'
@@ -11,6 +12,9 @@ import { UserInfo } from '@/ts/interfaces/userinfo.interface'
 import useFormValidator from '@/hooks/useFormValidator'
 
 const router = useRouter()
+
+const userInfoStore = useUserInfoStore()
+
 const rules: Rules = {
 	userName: {
 		type: 'string', // 使用预设类型校验规则
@@ -73,9 +77,10 @@ const handleLogin = async () => {
 					url: '/user/getUserByToken'
 				}).then(res => {
 					storeUserInfo(res.data)
+					userInfoStore.storeUserInfo(res.data)
+					router.replace('/index')
+					Toast.success('欢迎进入账单管理系统!')
 				})
-				router.replace('/index')
-				Toast.success('欢迎进入账单管理系统!')
 			})
 			.catch(err => {
 				Toast.error(err.errMsg)
