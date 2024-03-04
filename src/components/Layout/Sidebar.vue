@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { MENUITEM } from '@/utils/constants'
 import { clearStorage } from '@/utils/storage'
+import { ROLE_ID } from '@/ts/enums/userinfo.enum'
+import useUserInfoStore from '@/store/userInfoStore'
 
 // 控制子菜单展开
 const subMenuItemActive = ref('')
@@ -16,13 +18,15 @@ const handleExit = () => {
 	clearStorage()
 	router.replace('/')
 }
+
+const { userInfo } = useUserInfoStore()
 </script>
 <template>
 	<div
 		class="h-full w-fit md:w-1/4 lg:w-1/5 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
 	>
 		<ul class="space-y-2 font-medium">
-			<li>
+			<li v-if="userInfo.roleId === ROLE_ID.ADMIN">
 				<button
 					type="button"
 					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -93,7 +97,12 @@ const handleExit = () => {
 				</ul>
 			</li>
 
-			<li>
+			<li
+				v-if="
+					userInfo.roleId === ROLE_ID.ADMIN ||
+					userInfo.roleId === ROLE_ID.AUDIT
+				"
+			>
 				<button
 					type="button"
 					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -155,7 +164,12 @@ const handleExit = () => {
 					</li>
 				</ul>
 			</li>
-			<li>
+			<li
+				v-if="
+					userInfo.roleId === ROLE_ID.ADMIN ||
+					userInfo.roleId === ROLE_ID.INVENTORY
+				"
+			>
 				<button
 					type="button"
 					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -217,7 +231,12 @@ const handleExit = () => {
 					</li>
 				</ul>
 			</li>
-			<li>
+			<li
+				v-if="
+					userInfo.roleId === ROLE_ID.ADMIN ||
+					userInfo.roleId === ROLE_ID.SALE
+				"
+			>
 				<button
 					type="button"
 					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -279,7 +298,7 @@ const handleExit = () => {
 					</li>
 				</ul>
 			</li>
-			<li>
+			<li v-if="userInfo.roleId === ROLE_ID.ADMIN">
 				<button
 					type="button"
 					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
