@@ -6,10 +6,6 @@ export interface SearchForm {
 	userName: string
 }
 
-export interface TableData {
-	total: number
-	rows: UserInfo[]
-}
 
 export type UserRole = Pick<UserInfo, 'roleId' | 'roleName'>
 

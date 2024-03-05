@@ -2,11 +2,12 @@
 import { onBeforeMount, onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { appJsonPost, formGet } from '@/api/request'
-import { SearchForm, TableData } from '@/ts/interfaces/user.interface'
+import { SearchForm } from '@/ts/interfaces/user.interface'
 import { UserInfo } from '@/ts/interfaces/userinfo.interface'
+import { TableData } from '@/ts/interfaces/general.interface'
 import { ROLE_ID } from '@/ts/enums/userinfo.enum'
 
-const tableData = reactive<TableData>({
+const tableData = reactive<TableData<UserInfo>>({
 	total: 0,
 	rows: []
 })
@@ -16,7 +17,7 @@ const searchFormData = reactive<SearchForm>({
 	userName: ''
 })
 const loadTable = async () => {
-	const { data } = await appJsonPost<SearchForm, TableData>({
+	const { data } = await appJsonPost<SearchForm, TableData<UserInfo>>({
 		url: '/user/loadTable',
 		data: searchFormData
 	})
