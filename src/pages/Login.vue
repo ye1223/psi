@@ -10,10 +10,14 @@ import { LoginResult } from '@/ts/interfaces/request.interface'
 import { storeToken, storeUserInfo } from '@/utils/storage'
 import { UserInfo } from '@/ts/interfaces/userinfo.interface'
 import useFormValidator from '@/hooks/useFormValidator'
+import { VERIFIED_STATUS } from '@/ts/enums/input.enum'
+import InputVerified from '@/utils/inputVerified'
 
 const router = useRouter()
 
 const userInfoStore = useUserInfoStore()
+
+const isVerified = ref(VERIFIED_STATUS.DEFAULT)
 
 const rules: Rules = {
 	userName: {
@@ -87,8 +91,12 @@ const handleLogin = async () => {
 			})
 	} else {
 		Toast.error('账号验证错误')
+		isVerified.value = VERIFIED_STATUS.UNVERIFIED
 		// console.log(errorFields, errors)
 	}
+}
+const clearInput = () => {
+	isVerified.value = VERIFIED_STATUS.DEFAULT
 }
 </script>
 
@@ -129,9 +137,13 @@ const handleLogin = async () => {
 								type="text"
 								name="name"
 								id="name"
-								class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+								:class="
+									InputVerified(isVerified)
+										? 'input-default'
+										: 'input-error'
+								"
+								@input="clearInput"
 								placeholder="输入你的账号🌟"
-								required
 							/>
 						</div>
 						<div>
@@ -147,8 +159,12 @@ const handleLogin = async () => {
 								name="pwd"
 								id="pwd"
 								placeholder="••••••••"
-								class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-								required
+								:class="
+									InputVerified(isVerified)
+										? 'input-default'
+										: 'input-error'
+								"
+								@input="clearInput"
 							/>
 						</div>
 						<div class="flex items-center justify-between">
@@ -159,7 +175,6 @@ const handleLogin = async () => {
 										aria-describedby="remember"
 										type="checkbox"
 										class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-										:required="false"
 									/>
 								</div>
 								<div class="ml-3 text-sm">
