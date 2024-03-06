@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onBeforeMount, ref, watch } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 defineSlots<{
 	default(props: { msg: string }): any
 }>()
@@ -8,7 +8,7 @@ type ButtonTypeArray = ButtonType[]
 
 export interface Props {
 	visible: boolean
-	beforeClose?: Function
+	cancel?: Function
 	confirm?: Function
 	buttons: ButtonTypeArray | []
 }
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
 const modalRef = ref<HTMLDivElement>()
 
 const handleExit = () => {
-	props.beforeClose ? props.beforeClose() : ''
+	props.cancel ? props.cancel() : ''
 }
 
 const handleConfirm = () => {
