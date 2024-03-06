@@ -1,9 +1,9 @@
 // import { LoginForm } from './login.interface'
 import { UserInfo } from './userinfo.interface'
 
-type TypeId = {
-	// id: number
-	userId: string
+interface TypeId  {
+	id?: string
+	userId?: string
 }
 // 参数
 export interface ApiFormGetParams {

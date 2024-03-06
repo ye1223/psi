@@ -3,7 +3,8 @@ import { UserInfo } from './userinfo.interface'
 export interface SearchForm {
 	pageNow: number
 	pageSize: number
-	userName: string
+	userName?: string
+	name?: string
 }
 
 
