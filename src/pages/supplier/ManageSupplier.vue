@@ -39,7 +39,6 @@ onBeforeMount(() => {
 const handleSearch = () => {
 	if (!searchFormData.name) {
 		Toast.error('请输入供应商')
-		return
 	}
 	loadTable()
 }
