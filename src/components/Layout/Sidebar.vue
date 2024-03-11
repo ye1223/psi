@@ -26,6 +26,28 @@ const { userInfo } = useUserInfoStore()
 		class="h-full w-fit md:w-1/4 lg:w-1/5 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
 	>
 		<ul class="space-y-2 font-medium">
+			<li>
+				<a
+					href="javascript:;"
+					class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+				>
+					<svg
+						class="w-6 h-6 text-gray-500 dark:text-white"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M11.3 3.3a1 1 0 0 1 1.4 0l6 6 2 2a1 1 0 0 1-1.4 1.4l-.3-.3V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3c0 .6-.4 1-1 1H7a2 2 0 0 1-2-2v-6.6l-.3.3a1 1 0 0 1-1.4-1.4l2-2 6-6Z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+
+					<router-link to="/index" class="flex-1 ml-3 whitespace-nowrap"> 首页 </router-link>
+				</a>
+			</li>
 			<li v-if="userInfo.roleId === ROLE_ID.ADMIN">
 				<button
 					type="button"
@@ -34,19 +56,19 @@ const { userInfo } = useUserInfoStore()
 					@click="handleSubMenuToggle(MENUITEM.BASIC_INFO)"
 				>
 					<svg
-						class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+						class="w-6 h-6 text-gray-500 dark:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="currentColor"
-						viewBox="0 0 22 21"
+						viewBox="0 0 24 24"
 					>
 						<path
-							d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
-						/>
-						<path
-							d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
+							fill-rule="evenodd"
+							d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm9.4-5.5a1 1 0 1 0 0 2 1 1 0 1 0 0-2ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4c0-.6-.4-1-1-1h-2Z"
+							clip-rule="evenodd"
 						/>
 					</svg>
+
 					<span class="flex-1 ml-3 text-left whitespace-nowrap">
 						基础资料
 					</span>
@@ -100,7 +122,7 @@ const { userInfo } = useUserInfoStore()
 			<li
 				v-if="
 					userInfo.roleId === ROLE_ID.ADMIN ||
-					userInfo.roleId === ROLE_ID.AUDIT
+					userInfo.roleId === ROLE_ID.INVENTORY
 				"
 			>
 				<button
@@ -110,19 +132,19 @@ const { userInfo } = useUserInfoStore()
 					@click="handleSubMenuToggle(MENUITEM.RET)"
 				>
 					<svg
-						class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+						class="w-6 h-6 text-gray-500 dark:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="currentColor"
-						viewBox="0 0 22 21"
+						viewBox="0 0 24 24"
 					>
 						<path
-							d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
-						/>
-						<path
-							d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
+							fill-rule="evenodd"
+							d="M4 4a2 2 0 0 0-2 2v9c0 .6.4 1 1 1h.5v.5a3.5 3.5 0 1 0 7-.5h3v.5a3.5 3.5 0 1 0 7-.5h.5c.6 0 1-.4 1-1v-4l-.1-.4-2-4A1 1 0 0 0 19 6h-5a2 2 0 0 0-2-2H4Zm14.2 11.6.3.9a1.5 1.5 0 1 1-.3-1Zm-10 0 .3.9a1.5 1.5 0 1 1-.3-1ZM14 10V8h4.4l1 2H14Z"
+							clip-rule="evenodd"
 						/>
 					</svg>
+
 					<span class="flex-1 ml-3 text-left whitespace-nowrap">
 						进退货
 					</span>
@@ -167,7 +189,7 @@ const { userInfo } = useUserInfoStore()
 			<li
 				v-if="
 					userInfo.roleId === ROLE_ID.ADMIN ||
-					userInfo.roleId === ROLE_ID.INVENTORY
+					userInfo.roleId === ROLE_ID.SALE
 				"
 			>
 				<button
@@ -177,19 +199,19 @@ const { userInfo } = useUserInfoStore()
 					@click="handleSubMenuToggle(MENUITEM.PURCHASE_REFUND)"
 				>
 					<svg
-						class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+						class="w-6 h-6 text-gray-500 dark:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="currentColor"
-						viewBox="0 0 22 21"
+						viewBox="0 0 24 24"
 					>
 						<path
-							d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
-						/>
-						<path
-							d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
+							fill-rule="evenodd"
+							d="M14 7h-4v3a1 1 0 1 1-2 0V7H6a1 1 0 0 0-1 1L4 19.7A2 2 0 0 0 6 22h12c1 0 2-1 2-2.2L19 8c0-.5-.5-.9-1-.9h-2v3a1 1 0 1 1-2 0V7Zm-2-3a2 2 0 0 0-2 2v1H8V6a4 4 0 1 1 8 0v1h-2V6a2 2 0 0 0-2-2Z"
+							clip-rule="evenodd"
 						/>
 					</svg>
+
 					<span class="flex-1 ml-3 text-left whitespace-nowrap">
 						销售与退款
 					</span>
@@ -234,7 +256,7 @@ const { userInfo } = useUserInfoStore()
 			<li
 				v-if="
 					userInfo.roleId === ROLE_ID.ADMIN ||
-					userInfo.roleId === ROLE_ID.SALE
+					userInfo.roleId === ROLE_ID.AUDIT
 				"
 			>
 				<button
@@ -244,19 +266,24 @@ const { userInfo } = useUserInfoStore()
 					@click="handleSubMenuToggle(MENUITEM.AUDIT)"
 				>
 					<svg
-						class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+						class="w-6 h-6 text-gray-500 dark:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="currentColor"
-						viewBox="0 0 22 21"
+						viewBox="0 0 24 24"
 					>
 						<path
-							d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
+							fill-rule="evenodd"
+							d="M12 14a3 3 0 0 1 3-3h4a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4a3 3 0 0 1-3-3Zm3-1a1 1 0 1 0 0 2h4v-2h-4Z"
+							clip-rule="evenodd"
 						/>
 						<path
-							d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
+							fill-rule="evenodd"
+							d="M12.3 3.3a1 1 0 0 1 1.4 0L16.4 6h-2.8l-1.3-1.3a1 1 0 0 1 0-1.4Zm.1 2.7L9.7 3.3a1 1 0 0 0-1.4 0L5.6 6h6.8ZM4.6 7A2 2 0 0 0 3 9v10c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2h-4a5 5 0 0 1 0-10h4a2 2 0 0 0-1.5-2h-13Z"
+							clip-rule="evenodd"
 						/>
 					</svg>
+
 					<span class="flex-1 ml-3 text-left whitespace-nowrap">
 						账务审核
 					</span>
