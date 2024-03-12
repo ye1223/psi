@@ -7,6 +7,7 @@ import { GoodsInfo } from '@/ts/interfaces/goods.interface'
 import { SearchForm } from '@/ts/interfaces/user.interface'
 import Toast from '@/components/UI/Toast'
 import { formGet } from '@/api/request'
+import { useRouter } from 'vue-router'
 
 const searchFormData = reactive<SearchForm>({
 	pageNow: 1,
@@ -41,7 +42,10 @@ const handleDelete = (row: GoodsInfo) => {
 		})
 }
 
-const handleAdd = () => {}
+const router = useRouter()
+const handleAdd = () => {
+	router.replace('/goods/add')
+}
 </script>
 
 <template>
