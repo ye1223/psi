@@ -24,7 +24,7 @@ const handleClose = () => {
 		enter-active-class="transition ease-out duration-300"
 		leave-active-class="transition ease-in duration-300"
 	>
-		<div class="fixed inset-0 h-0" v-if="props.visible">
+		<div class="fixed inset-0 h-0 z-[999999]" v-if="props.visible">
 			<div
 				:id="`toast-${status}`"
 				class="absolute top-5 left-1/2 -translate-x-1/2 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
