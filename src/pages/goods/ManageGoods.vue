@@ -61,7 +61,7 @@ const handleAdd = () => {
 	<section class="mt-8">
 		<Table
 			:labels="['商品名', '产地', '销售价(￥)', '库存', '单位', '规格']"
-			:tableData="tableData"
+			:list="tableData.rows"
 			:operation="true"
 			:selectAll="false"
 		>
