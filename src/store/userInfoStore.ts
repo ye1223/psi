@@ -4,14 +4,10 @@ import { formGet } from '@/api/request'
 import { UserInfo } from '@/ts/interfaces/userinfo.interface'
 
 const useUserInfoStore = defineStore('userInfo', () => {
-
-	const userInfo = ref<UserInfo>({
-		id: '',
-		userName: '',
-		roleId: -999,
-		roleName: ''
-	})
-
+	const userInfo = ref<UserInfo>(
+		JSON.parse(localStorage.getItem('userInfo') as string)
+	)
+	
 	const fetchUserInfo = async () => {
 		const { data } = await formGet<UserInfo>({
 			url: '/user/getUserByToken'
@@ -22,7 +18,12 @@ const useUserInfoStore = defineStore('userInfo', () => {
 	}
 
 	const storeUserInfo = (payload: UserInfo) => {
-		userInfo.value = payload
+		if (userInfo) {
+			// userInfo.value = payload
+			localStorage.setItem('userInfo', JSON.stringify(payload))
+		} else {
+			localStorage.removeItem('userInfo')
+		}
 	}
 	return {
 		userInfo,
