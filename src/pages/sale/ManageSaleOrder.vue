@@ -40,7 +40,8 @@ const searchFormData = reactive({
 	fuzzyOrderNo: ''
 })
 loadTable({ ...searchFormData })
-const handleSearch = () => {
+const handleSearch = (searchText: string) => {
+	searchFormData.fuzzyOrderNo = searchText
 	loadTable({ ...searchFormData })
 }
 
