@@ -43,7 +43,8 @@ const searchFormData = reactive({
 	purchaseNo: ''
 })
 loadTable({ ...searchFormData })
-const handleSearch = () => {
+const handleSearch = (searchText: string) => {
+	searchFormData.purchaseNo = searchText
 	loadTable({ ...searchFormData })
 }
 

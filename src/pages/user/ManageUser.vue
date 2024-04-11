@@ -6,7 +6,6 @@ import { SearchForm } from '@/ts/interfaces/user.interface'
 import { UserInfo } from '@/ts/interfaces/userinfo.interface'
 import { TableData } from '@/ts/interfaces/general.interface'
 import { ROLE_ID } from '@/ts/enums/userinfo.enum'
-import Toast from '@/components/UI/Toast'
 
 const tableData = reactive<TableData<UserInfo>>({
 	total: 0,
@@ -34,12 +33,12 @@ onBeforeMount(() => {
 	loadTable()
 })
 
-
 // 按用户名搜索逻辑
 const handleSearch = () => {
-	if (!searchFormData.name) {
+	/* if (!searchFormData.name) {
 		Toast.error('请输入供应商')
-	}
+	} */
+	// searchFormData.name = searchText
 	loadTable()
 }
 
