@@ -211,7 +211,7 @@ const handleBack = () => {
 			<fwb-table-head>
 				<fwb-table-head-cell>商品名</fwb-table-head-cell>
 				<fwb-table-head-cell>单位</fwb-table-head-cell>
-				<fwb-table-head-cell>销售价（元）</fwb-table-head-cell>
+				<fwb-table-head-cell>采购价（元）</fwb-table-head-cell>
 				<fwb-table-head-cell>采购数量</fwb-table-head-cell>
 				<fwb-table-head-cell>供应商</fwb-table-head-cell>
 			</fwb-table-head>
