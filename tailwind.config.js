@@ -5,7 +5,7 @@ export default {
 		'./src/**/*.{vue,js,ts,jsx,tsx}',
 		'./node_modules/flowbite/**/*.js',
 		'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}',
-    	'node_modules/flowbite/**/*.{js,jsx,ts,tsx}'
+		'node_modules/flowbite/**/*.{js,jsx,ts,tsx}'
 	],
 	darkMode: 'class',
 	theme: {
@@ -24,6 +24,9 @@ export default {
 					900: '#1e3a8a',
 					950: '#172554'
 				}
+			},
+			spacing: {
+				'140p': '140%', // 创建一个名为 '200p' 的类，值为 200%
 			}
 		},
 		fontFamily: {
