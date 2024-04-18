@@ -4,13 +4,13 @@ import Sidebar from './Layout/Sidebar.vue'
 </script>
 
 <template>
-	<section>
+	<section class="w-full h-full flex flex-col">
 		<aside>
 			<Header />
 		</aside>
-		<section class="flex flex-row h-screen">
+		<section class="grow flex flex-row">
 			<Sidebar />
-			<div class="flex-1">
+			<div class="flex-1 p-5 overflow-auto">
 				<router-view></router-view>
 			</div>
 		</section>

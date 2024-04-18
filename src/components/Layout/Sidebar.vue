@@ -10,7 +10,9 @@ import useUserInfoStore from '@/store/userInfoStore'
 const subMenuItemActive = ref('')
 
 const handleSubMenuToggle = (meunitem: string) => {
-	subMenuItemActive.value = meunitem
+	subMenuItemActive.value !== meunitem
+		? (subMenuItemActive.value = meunitem)
+		: (subMenuItemActive.value = '')
 }
 
 const router = useRouter()
@@ -23,7 +25,7 @@ const { userInfo } = useUserInfoStore()
 </script>
 <template>
 	<div
-		class="h-full w-fit md:w-1/4 lg:w-1/5 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
+		class="w-fit md:w-1/4 lg:w-1/5 px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800"
 	>
 		<ul class="space-y-2 font-medium">
 			<li>
@@ -45,13 +47,18 @@ const { userInfo } = useUserInfoStore()
 						/>
 					</svg>
 
-					<router-link to="/index" class="flex-1 ml-3 whitespace-nowrap"> 首页 </router-link>
+					<router-link
+						to="/index"
+						class="flex-1 ml-3 whitespace-nowrap"
+					>
+						首页
+					</router-link>
 				</a>
 			</li>
 			<li v-if="userInfo.roleId === ROLE_ID.ADMIN">
 				<button
 					type="button"
-					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+					class="flex items-center w-full p-2 text-base text-gray-900 Transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 					aria-controls="dropdown-example"
 					@click="handleSubMenuToggle(MENUITEM.BASIC_INFO)"
 				>
@@ -88,35 +95,37 @@ const { userInfo } = useUserInfoStore()
 						/>
 					</svg>
 				</button>
-				<ul
-					v-show="subMenuItemActive === MENUITEM.BASIC_INFO"
-					class="py-2 space-y-2"
-				>
-					<li>
-						<router-link
-							to="/user/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							员工管理
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/supplier/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							供应商管理
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/goods/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							商品管理
-						</router-link>
-					</li>
-				</ul>
+				<Transition name="fade">
+					<ul
+						v-show="subMenuItemActive === MENUITEM.BASIC_INFO"
+						class="py-2 space-y-2"
+					>
+						<li>
+							<router-link
+								to="/user/manage"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								员工管理
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/supplier/manage"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								供应商管理
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/goods/manage"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								商品管理
+							</router-link>
+						</li>
+					</ul>
+				</Transition>
 			</li>
 
 			<li
@@ -127,7 +136,7 @@ const { userInfo } = useUserInfoStore()
 			>
 				<button
 					type="button"
-					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+					class="flex items-center w-full p-2 text-base text-gray-900 Transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 					aria-controls="dropdown-example"
 					@click="handleSubMenuToggle(MENUITEM.RET)"
 				>
@@ -164,27 +173,30 @@ const { userInfo } = useUserInfoStore()
 						/>
 					</svg>
 				</button>
-				<ul
-					class="py-2 space-y-2"
-					v-show="subMenuItemActive === MENUITEM.RET"
-				>
-					<li>
-						<router-link
-							to="/purchase/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							进货管理
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/returnGoods/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							退货管理
-						</router-link>
-					</li>
-				</ul>
+
+				<Transition name="fade">
+					<ul
+						class="py-2 space-y-2"
+						v-show="subMenuItemActive === MENUITEM.RET"
+					>
+						<li>
+							<router-link
+								to="/purchase/manage"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								进货管理
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/returnGoods/manage"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								退货管理
+							</router-link>
+						</li>
+					</ul>
+				</Transition>
 			</li>
 			<li
 				v-if="
@@ -194,7 +206,7 @@ const { userInfo } = useUserInfoStore()
 			>
 				<button
 					type="button"
-					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+					class="flex items-center w-full p-2 text-base text-gray-900 Transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 					aria-controls="dropdown-example"
 					@click="handleSubMenuToggle(MENUITEM.PURCHASE_REFUND)"
 				>
@@ -231,27 +243,30 @@ const { userInfo } = useUserInfoStore()
 						/>
 					</svg>
 				</button>
-				<ul
-					class="py-2 space-y-2"
-					v-show="subMenuItemActive === MENUITEM.PURCHASE_REFUND"
-				>
-					<li>
-						<router-link
-							to="/purchase/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							销售管理
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/returnGoods/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							退款管理
-						</router-link>
-					</li>
-				</ul>
+
+				<Transition name="fade">
+					<ul
+						class="py-2 space-y-2"
+						v-show="subMenuItemActive === MENUITEM.PURCHASE_REFUND"
+					>
+						<li>
+							<router-link
+								to="/saleOrder/manage"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								销售管理
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/refund/manage"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								退款管理
+							</router-link>
+						</li>
+					</ul>
+				</Transition>
 			</li>
 			<li
 				v-if="
@@ -261,7 +276,7 @@ const { userInfo } = useUserInfoStore()
 			>
 				<button
 					type="button"
-					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+					class="flex items-center w-full p-2 text-base text-gray-900 Transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 					aria-controls="dropdown-example"
 					@click="handleSubMenuToggle(MENUITEM.AUDIT)"
 				>
@@ -303,37 +318,40 @@ const { userInfo } = useUserInfoStore()
 						/>
 					</svg>
 				</button>
-				<ul
-					class="py-2 space-y-2"
-					v-show="subMenuItemActive === MENUITEM.AUDIT"
-				>
-					<li>
-						<router-link
-							to="/purchase/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							销售管理
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/returnGoods/manage"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							退款管理
-						</router-link>
-					</li>
-				</ul>
+
+				<Transition name="fade"
+					><ul
+						class="py-2 space-y-2"
+						v-show="subMenuItemActive === MENUITEM.AUDIT"
+					>
+						<li>
+							<router-link
+								to="/audit/purchase"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								进货审核
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/audit/ret"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								退货审核
+							</router-link>
+						</li>
+					</ul>
+				</Transition>
 			</li>
 			<li v-if="userInfo.roleId === ROLE_ID.ADMIN">
 				<button
 					type="button"
-					class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+					class="flex items-center w-full p-2 text-base text-gray-900 Transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 					aria-controls="dropdown-example"
 					@click="handleSubMenuToggle(MENUITEM.STATISTIC)"
 				>
 					<svg
-						class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+						class="w-5 h-5 text-gray-500 Transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="currentColor"
@@ -365,52 +383,53 @@ const { userInfo } = useUserInfoStore()
 						/>
 					</svg>
 				</button>
-				<ul
-					class="py-2 space-y-2"
-					v-show="subMenuItemActive === MENUITEM.STATISTIC"
-				>
-					<li>
-						<router-link
-							to="/statistics/purchasePrice4Goods"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							商品进价波动
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/statistics/saleNum4Goods"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							商品购买量
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/statistics/ret4Supplier"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							供应商进货占比
-						</router-link>
-					</li>
-					<li>
-						<router-link
-							to="/statistics/saleAmount4Goods"
-							class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-						>
-							销售额统计
-						</router-link>
-					</li>
-				</ul>
+				<Transition name="fade">
+					<ul
+						class="py-2 space-y-2"
+						v-show="subMenuItemActive === MENUITEM.STATISTIC"
+					>
+						<li>
+							<router-link
+								to="/statistics/purchasePrice4Goods"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								商品进价波动
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/statistics/saleNum4Goods"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								商品购买量
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/statistics/ret4Supplier"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								供应商进货占比
+							</router-link>
+						</li>
+						<li>
+							<router-link
+								to="/statistics/saleAmount4Goods"
+								class="flex items-center w-full p-2 text-gray-900 Transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>
+								销售额统计
+							</router-link>
+						</li>
+					</ul>
+				</Transition>
 			</li>
 
 			<li>
-				<a
-					href="javascript:;"
+				<span
 					class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
 				>
 					<svg
-						class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+						class="flex-shrink-0 w-5 h-5 text-gray-500 Transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -430,8 +449,21 @@ const { userInfo } = useUserInfoStore()
 					>
 						退出
 					</span>
-				</a>
+				</span>
 			</li>
 		</ul>
 	</div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+	/* max-height: 0; */
+}
+</style>
