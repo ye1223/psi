@@ -7,6 +7,7 @@ type ButtonType = 'confirm' | 'cancel'
 type ButtonTypeArray = ButtonType[]
 
 export interface Props {
+	title?: string
 	visible: boolean
 	cancel?: Function
 	confirm?: Function
@@ -74,7 +75,7 @@ onBeforeMount(() => {
 					<h3
 						class="text-xl font-semibold text-gray-900 dark:text-white"
 					>
-						新增供应商
+						{{ props.title }}
 					</h3>
 					<button
 						type="button"
