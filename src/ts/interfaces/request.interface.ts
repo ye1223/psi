@@ -1,8 +1,8 @@
 // import { LoginForm } from './login.interface'
-import { UserInfo } from './userinfo.interface'
+// import { UserInfo } from './userinfo.interface'
 
 interface TypeId  {
-	id?: string
+	id?: string | number
 	userId?: string
 }
 // 参数

@@ -5,6 +5,8 @@ export interface SearchForm {
 	pageSize: number
 	userName?: string
 	name?: string
+	fuzzyRetNo?: string
+	status?: number
 }
 
 
