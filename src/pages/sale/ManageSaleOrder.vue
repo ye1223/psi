@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { FwbPagination } from 'flowbite-vue'
 import { appJsonPost } from '@/api/request'
 import useTable from '@/hooks/useTable'
 import Search from '@/components/UI/Search.vue'
@@ -93,6 +94,12 @@ const handleRefund = () => {
 			Toast.error(`${result.errMsg}`)
 		})
 }
+
+// 分页
+const handlePageChange = (newPageNow: number) => {
+	searchFormData.pageNow = newPageNow
+	loadTable({ ...searchFormData })
+}
 </script>
 
 <template>
@@ -133,6 +140,18 @@ const handleRefund = () => {
 				</span>
 			</template>
 		</Table>
+	</section>
+
+	<section class="mt-10 text-center" v-if="tableData.total">
+		<fwb-pagination
+			v-model="searchFormData.pageNow"
+			:total-items="tableData.total"
+			:perPage="searchFormData.pageSize"
+			@page-changed="handlePageChange"
+			show-icons
+			:showLabels="false"
+			large
+		/>
 	</section>
 
 	<Modal

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { onBeforeMount, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { FwbPagination } from 'flowbite-vue'
 import { appJsonPost, formGet } from '@/api/request'
 import { SearchForm } from '@/ts/interfaces/user.interface'
 import { UserInfo } from '@/ts/interfaces/userinfo.interface'
@@ -65,6 +66,12 @@ const handleEdit = (row: UserInfo) => {
 			userId: row.id
 		}
 	})
+}
+
+// 分页
+const handlePageChange = (newPageNow: number) => {
+	searchFormData.pageNow = newPageNow
+	loadTable()
 }
 </script>
 
@@ -168,6 +175,18 @@ const handleEdit = (row: UserInfo) => {
 			</table>
 		</div>
 	</div>
+
+	<section class="mt-10 text-center" v-if="tableData.total">
+		<fwb-pagination
+			v-model="searchFormData.pageNow"
+			:total-items="tableData.total"
+			:perPage="searchFormData.pageSize"
+			@page-changed="handlePageChange"
+			show-icons
+			:showLabels="false"
+			large
+		/>
+	</section>
 </template>
 
 <style scoped></style>

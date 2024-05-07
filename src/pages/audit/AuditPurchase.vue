@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import { FwbPagination } from 'flowbite-vue'
 import { appJsonPost } from '@/api/request'
 import useTable from '@/hooks/useTable'
 import Search from '@/components/UI/Search.vue'
@@ -76,6 +77,12 @@ const handleReject = (row: PurchaseOrder) => {
 		Toast.success(`${row.id}订单成功通过进货审核`)
 	})
 }
+
+// 分页
+const handlePageChange = (newPageNow: number) => {
+	searchFormData.pageNow = newPageNow
+	loadTable({ ...searchFormData })
+}
 </script>
 
 <template>
@@ -115,6 +122,18 @@ const handleReject = (row: PurchaseOrder) => {
 				</span>
 			</template>
 		</Table>
+	</section>
+
+	<section class="mt-10 text-center" v-if="tableData.total">
+		<fwb-pagination
+			v-model="searchFormData.pageNow"
+			:total-items="tableData.total"
+			:perPage="searchFormData.pageSize"
+			@page-changed="handlePageChange"
+			show-icons
+			:showLabels="false"
+			large
+		/>
 	</section>
 
 	<Modal

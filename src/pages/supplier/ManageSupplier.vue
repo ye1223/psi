@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { onBeforeMount, reactive, ref } from 'vue'
+import { FwbPagination } from 'flowbite-vue'
 import { appJsonPost, formGet } from '@/api/request'
 import { SearchForm } from '@/ts/interfaces/user.interface'
 import { TableData } from '@/ts/interfaces/general.interface'
@@ -92,6 +93,12 @@ const editRow = ref<SupplierInfo>({
 const handleEdit = (row: SupplierInfo) => {
 	editModalVisible.value = true
 	editRow.value = { ...row } // ref -> reactive
+}
+
+// 分页
+const handlePageChange = (newPageNow: number) => {
+	searchFormData.pageNow = newPageNow
+	loadTable()
 }
 </script>
 
@@ -192,6 +199,18 @@ const handleEdit = (row: SupplierInfo) => {
 			</table>
 		</div>
 	</div>
+
+	<section class="mt-10 text-center" v-if="tableData.total">
+		<fwb-pagination
+			v-model="searchFormData.pageNow"
+			:total-items="tableData.total"
+			:perPage="searchFormData.pageSize"
+			@page-changed="handlePageChange"
+			show-icons
+			:showLabels="false"
+			large
+		/>
+	</section>
 
 	<Modal
 		:visible="addModalVisible"

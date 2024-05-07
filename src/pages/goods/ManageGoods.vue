@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
+import { FwbPagination } from 'flowbite-vue'
 import Search from '@/components/UI/Search.vue'
 import Table from '@/components/UI/Table.vue'
 import useTable from '@/hooks/useTable'
@@ -11,7 +12,7 @@ import { useRouter } from 'vue-router'
 
 const searchFormData = reactive<SearchForm>({
 	pageNow: 1,
-	pageSize: 10,
+	pageSize: 5,
 	name: ''
 })
 const { tableData, loadTable } = useTable<GoodsInfo>({
@@ -46,6 +47,12 @@ const router = useRouter()
 const handleAdd = () => {
 	router.replace('/goods/add')
 }
+
+// 分页
+const handlePageChange = (newPageNow: number) => {
+	searchFormData.pageNow = newPageNow
+	loadTable({ ...searchFormData })
+}
 </script>
 
 <template>
@@ -74,6 +81,18 @@ const handleAdd = () => {
 				</span>
 			</template>
 		</Table>
+	</section>
+
+	<section class="mt-10 text-center" v-if="tableData.total">
+		<fwb-pagination
+			v-model="searchFormData.pageNow"
+			:total-items="tableData.total"
+			:perPage="searchFormData.pageSize"
+			@page-changed="handlePageChange"
+			show-icons
+			:showLabels="false"
+			large
+		/>
 	</section>
 </template>
 
